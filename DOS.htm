@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>DOS</title>
+		<link rel="icon" sizes="16x16" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+kFChYNOjHL98MAAAEWSURBVDjLdZJrbuwwCEZPRt1XmZX5sLK4K+P+sJ06mVsklICw+R4GUC315Ddi9mrWa2bNxRp8AUQEsxlzus0egL33BnQ1IyL2ZV/XygjUphLb6WdERO71a/303hf0ttUAzkMxFzSgf1yg9kWlb6cn/6a+1fdE+kkB+Om9EyNSXTR6RLSHyNeCQ6gnT7G7KY32XXklAecwVVuKVdSVat0aM5XzpkHObDSSJDnIbVEechySecGPGwLgBM6iJorRU0oHMrHmja4LXruIM/f4Ud57o4qmtA8b7yI+an9Vz4TW4EMD4HtokRRDZuBbOasIHO7sFv7Xhacbyl8u1J8U8vrmMD0H9J3GQnI41I8HqhTbVvftZd4e0j+xceXPBB5O0QAAAABJRU5ErkJggg==">
+		<link rel="icon" sizes="192x192" type="image/png" href="data:image/png;base64,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">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<style>
+			html,body{padding:0;margin:0;background-color:black;overflow:hidden}
+			*{cursor:default !important;-webkit-user-select:none;user-select:none}
+			h3{display:none !important}
+			textarea{position:absolute;left:0;top:0;width:100%;height:100%;border:0;padding:0;resize:none;color:#fff;font-family:Monaco,"Lucida Console",monospace;font-size:small;background:#000;opacity:0;line-height:0;outline:none !important;caret-color:transparent}
+			.pcjs-container{border:0 !important}
+			.pcjs-title{display:none !important}
+			.pcjs-label{display:none !important}
+			.pcx86-binding{display:none !important}
+			.pcjs-controls{display:none !important}
+			.pcx86-component{padding:0 !important}
+			.pcjs-reference{display:none !important}
+			.pcjs-copyright{display:none !important}
+			canvas{width:100vw !important;height:100vh !important}
+
+			.launcher{position:fixed;left:0;top:50%;transform:translateY(-50%);right:0;text-align:center;color:#fff;font-family:Monaco,"Lucida Console",monospace;font-size:4vw}
+
+			.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0;z-index:-1}
+			.lds-spinner{color:white;display:inline-block;position:relative;width:64px;height:64px}
+			.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}
+			.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:white}
+			.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}
+			.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}
+			.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-0.9s}
+			.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-0.8s}
+			.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-0.7s}
+			.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-0.6s}
+			.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-0.5s}
+			.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-0.4s}
+			.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-0.3s}
+			.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-0.2s}
+			.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-0.1s}
+			.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}
+			@keyframes lds-spinner{0%{opacity:1}100%{opacity:0}}
+		</style>
+	</head>
+	<body>
+		<div class="pleasewait"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+		<div class="launcher"></div>
+		<div id="computer386"></div>
+		<script src="DOS.min.js"></script>
+		<script>
+			var DISK_DATA;
+			var emulatorLaunched = false;
+			var emulatorSoundEnabled = true;
+
+			var userLanguage = window.navigator.language.substring(0, 2).toLowerCase();
+			var CLICK_TO_START = "";
+
+			if (userLanguage.substring(0,2) === "es") {
+				CLICK_TO_START = "HAGA CLICK<br>PARA COMENZAR";
+			} else {
+				CLICK_TO_START = "PLEASE CLICK<br>TO START";
+			}
+
+			const getCachedDiskFile = async () => {
+				try {
+					const cache = await caches.open("DOSCache");
+					const response = await cache.match("DiskImage");
+					if (response && response.ok) {
+						try {
+							const blob = await response.blob();
+							const scriptText = await blob.text();
+							return scriptText;
+						} catch (error) {
+						}
+					}
+				} catch(err) {
+				}
+				return "";
+			}
+
+			const setCachedDiskFile = async (scriptText) => {
+				try {
+					const cache = await caches.open("DOSCache");
+					const blob = new Blob([scriptText]);
+					const response = new Response(blob);
+					await cache.put("DiskImage", response);
+				} catch(err) {
+				}
+			}
+
+			const clearCachedDiskFile = async () => {
+				try {
+					const cache = await caches.open("DOSCache");
+					const result = await cache.delete("DiskImage");
+				} catch(err) {
+				}
+			}
+
+			const initializeEmulator = () => {
+				document.getElementsByClassName("pleasewait")[0].style.display = "none";
+				document.getElementsByClassName("launcher")[0].innerHTML = CLICK_TO_START;
+
+				document.getElementsByTagName("html")[0].addEventListener("click", function() {
+					if (!emulatorLaunched) {
+						document.getElementsByClassName("launcher")[0].style.display = "none";
+						emulatorLaunched = true;
+						embedPCx86("computer386");
+					}
+				});
+
+				document.addEventListener("keydown", function(event) {
+					const ctrlKeyPressed = event.ctrlKey || event.metaKey;
+					const uKeyPressed = event.key === "u" || event.keyCode === 73;
+					const iKeyPressed = event.key === "i" || event.keyCode === 73;
+
+					if (ctrlKeyPressed && uKeyPressed) {
+						try {
+							emulatorSoundEnabled = !emulatorSoundEnabled;
+						} catch(err) {
+						}
+					}
+
+					if (ctrlKeyPressed && iKeyPressed) {
+						try {
+							document.getElementsByClassName("pcx86-binding")[10].click();
+						} catch(err) {
+						}
+					}
+				});
+			}
+
+			window.addEventListener("load", async () => {
+				// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
+				if (window.top === window.self) {
+					const currentURL = new URL(window.location.href).searchParams;
+					const requiredClearCache = currentURL.has("clearcache");
+
+					if (requiredClearCache) {
+						await clearCachedDiskFile();
+					}
+
+					const scriptText = await getCachedDiskFile();
+					
+					if (scriptText) {
+						DISK_DATA = JSON.parse(scriptText);
+						initializeEmulator();
+					} else {
+						const scriptDiskLoader = document.createElement("script");
+						scriptDiskLoader.src = "DISK.js";
+						scriptDiskLoader.onload = () => {
+							setCachedDiskFile(JSON.stringify(DISK_DATA));
+							initializeEmulator();
+						}
+						document.getElementsByTagName("body")[0].appendChild(scriptDiskLoader);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
