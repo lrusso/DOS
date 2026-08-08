@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>DOS</title>
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAhlQTFRFc181BgEAeGQ5nolTdWE3/dc5f2k7sZthalcwlYFNmoZQajgQcjwTmlMepZBYlFAdp5JaYjINkn1JikoZblsyooxXcVwzaFQup1wjrF4k+c04eEEUo1khfUMVjHZERyIFWy4Lh3A+kUwbsWIlxW8rrZZegkYWUygIPhwCwWsptp5jnlcghUcXbVkyq5RbfGY6YU8r+9I7MxYAvGkoZFEts2UmhGxAJQ4AXUwooYtUjU0b/dU+iXNBuKFm0HUuy3IsmYJOuGcn/9o7WEckv6dr+M8xj3pG9csw88Yut2QmSyYMWEMar5lduqNq/9xBUDoT1XgwZE0h3q4h4H8x2nswRDANUD8d0qAapo9VfWc0SjYTu6RoeWMx+9Iy/9hE2qgev4sRX0gdzpsX5oQ0+NA0+s4/7sEoOCQGxK1wdV8u1qQb9cc27sEvlH1IcloraVEk6rwnwpESj3ZG/NE2bFcroIhNyJgXnlUfuJ5l/tNFbVYmuIQP5rci99A48Ik414dH4rQoez4RUy8T4rMixJQVt6Bj13875rkpYSkB6bwv0Xw6czYI9489VyAA4rAf249Tbi4C6LcpjXQ924I74YpFsH0Nfk8r/aJciEQSWTge+ZtUeEgi6pZVy5QTlYBHkHZCnE4WzH5CrVwfpVYahVc1gjsH3ZVe+pZH/Kpq559nh0EN6ZFLmoFIvG4zk0QMdUws/9hNq2s4l2Y/aVvAPgAAAQpJREFUGNMNjrFrg0AcRn+chyKRKklNr4QWNHEoSlMQBcUhtzi5dDJDIV0lJZ28JZTe4OIUEHQJZHKsg/6Fve0NH+97QHzqv9CAuAGllDwOYAfXrutaVjX96fQe++ASee44t7qpDUW1rhuwxy1OzNsX49IzCjsf7MFBKCzrAw/x1ukpxKMioeWDZSFAUVb4oJ9/8uy+4YxhMWsD8OKjzFXGilptDtk3Bc89Wjxt84ab+5KdhYPyvIS3sfpAKfst1uCNWYTgb19WS7x77deiw0EQNpxfQowNcauPMiSSWtU7M8FyR8EmcmpEZV1d7pS5LNL1wZ36qR3jz36adLKBxWK10p40bTbTNAHkH9U6SPEom/Z3AAAAAElFTkSuQmCC"
+    >
+    <meta name="theme-color" content="#000">
+    <meta name="keywords" content="dos, emulator, javascript">
+    <meta name="description" content="DOS emulator.">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    >
+    <style>
+      html,body{padding:0;margin:0;overscroll-behavior:none;background-color:#000;touch-action:none;user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+
+      #container{display:none}
+      input[type=file]{display:none}
+      #email{position:fixed;right:0;bottom:0;padding-right:15px;line-height:3.2;font-family:Arial;font-size:16px;color:#fff;user-select:none;-webkit-user-select:none}
+      #email a{text-decoration:none;color:#fff;background-color:transparent;border:0;outline:0}
+      #email a:focus{text-decoration: none; outline:1px solid #fff}
+      #demo-loader{display:none;position:fixed;left:0;bottom:0;right:0;top:0;width:20vw;height:20vw;margin:auto auto;cursor:pointer;background-color:transparent;border:0;outline:0}
+      #demo-loader:focus{outline:1px solid #fff}
+      #demo-loader:hover{filter:brightness(110%)}
+      #file-selector{display:none;position:fixed;left:0;bottom:0;right:0;top:0;width:20vw;height:20vw;margin:auto auto;cursor:pointer;background-color:transparent;border:0;outline:0}
+      #file-selector:focus{outline:1px solid #fff}
+      #file-selector:hover{filter:brightness(110%)}
+
+      #game{width:100vw;height:100vh}
+
+      .pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0}
+      .lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}
+      .lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}
+      .lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}
+      .lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}
+      .lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}
+      .lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}
+      .lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}
+      .lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}
+      .lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}
+      .lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}
+      .lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}
+      .lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}
+      .lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}
+      .lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}
+      .lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}
+      @keyframes lds-spinner{0%{opacity:1}to{opacity:0}}
+    </style>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div id="container">
+      <div id="email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
+      <button id="demo-loader">
+        <svg width="100%" height="100%" viewBox="0 0 502 502">
+          <circle fill="#FFF" cx="250" cy="250" r="200" />
+          <path
+            fill="#b9180b"
+            d="M251,1C112.929,1,1,112.929,1,251s111.929,250,250,250s250-111.929,250-250S389.071,1,251,1z M164.75,366  V136l230,115L164.75,366z"
+          />
+        </svg>
+      </button>
+      <button id="file-selector">
+        <svg width="100%" height="100%" viewBox="0 0 502 502">
+          <circle fill="#FFF" cx="250" cy="250" r="200" />
+          <path
+            fill="#b9180b"
+            d="M251,1C112.929,1,1,112.929,1,251s111.929,250,250,250s250-111.929,250-250S389.071,1,251,1z   M251.283,111.853L351,236.738h-56.935v73.761H208.51v-73.761h-56.941L251.283,111.853z M208.51,336.122v-19.418h85.556v19.418  H208.51z M294.065,341.665v10.186H208.51v-10.186H294.065z M391,380.147c0,5.522-4.477,10-10,10H121c-5.523,0-10-4.478-10-10  v-72.935c0-5.743,4.643-10.399,10.37-10.399s10.37,4.656,10.37,10.399v62.194h238.52v-62.194c0-5.743,4.643-10.399,10.37-10.399  S391,301.47,391,307.213V380.147z"
+          />
+        </svg>
+      </button>
+      <input
+        type="file"
+        id="zipfile-input"
+        accept=".zip,application/octet-stream"
+      >
+    </div>
+    <script src="DOS.min.js"></script>
+    <script>
+      var container = document.getElementById("container")
+      var demoLoader = document.getElementById("demo-loader")
+      var fileSelector = document.getElementById("file-selector")
+      var zipFileInput = document.getElementById("zipfile-input")
+      var pleaseWait = document.querySelector(".pleasewait")
+
+      function isMobileDevice() {
+        return !!(
+          navigator.userAgent.match(/Android/i) ||
+          navigator.userAgent.match(/iPhone/i) ||
+          navigator.userAgent.match(/iPad/i) ||
+          navigator.userAgent.match(/iPod/i)
+        )
+      }
+
+      window.addEventListener("load", function () {
+        if (window.top === window.self) {
+          container.style.display = "block"
+
+          var currentURL = new URL(window.location.href).searchParams
+          var demoRequired = currentURL.has("demo")
+          var bootFloppy = currentURL.has("floppy")
+
+          if (demoRequired) {
+            demoLoader.style.display = "block"
+            demoLoader.tabIndex = 1
+          } else {
+            fileSelector.style.display = "block"
+            fileSelector.tabIndex = 1
+          }
+
+          demoLoader.addEventListener("click", function () {
+            container.style.display = "none"
+
+            // the game url can be full or relative.
+            // if full, the emulator will get the filename from it.
+            var gameURL = "DEMO.zip"
+
+            // no fetch here because the entire project
+            // is compatible with pre 2015 environments.
+            var xhr = new XMLHttpRequest()
+            xhr.open("GET", gameURL, true)
+            xhr.responseType = "arraybuffer"
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                embedDOS({
+                  container: "game",
+                  name: gameURL,
+                  zipFile: xhr.response,
+                  soundEnabled: true,
+                  showMobileControls: isMobileDevice(),
+                  backText: "BACK",
+                  soundText: "SOUND",
+                  saveText: "SAVE",
+                  cbStarted: function cbStarted() {
+                    pleaseWait.style.display = "none"
+                  },
+                })
+              }
+            }
+
+            xhr.send(null)
+          })
+
+          fileSelector.addEventListener("click", function () {
+            demoLoader.blur()
+            fileSelector.blur()
+            zipFileInput.click()
+          })
+
+          zipFileInput.addEventListener("change", function (event) {
+            var validExtensions = [".zip"]
+            var fileExtension = event.target.files[0].name.toLowerCase()
+            var isValid = false
+
+            for (var i = 0; i < validExtensions.length; i++) {
+              if (fileExtension.endsWith(validExtensions[i])) {
+                isValid = true
+                break
+              }
+            }
+
+            if (!isValid) {
+              zipFileInput.value = null
+              return
+            }
+
+            container.style.display = "none"
+
+            var filereader = new FileReader()
+            filereader.onload = function () {
+              embedDOS({
+                container: "game",
+                name: event.target.files[0].name,
+                zipFile: filereader.result,
+                soundEnabled: true,
+                showMobileControls: isMobileDevice(),
+                backText: "BACK",
+                soundText: "SOUND",
+                saveText: "SAVE",
+                cbStarted: function cbStarted() {
+                  pleaseWait.style.display = "none"
+                  zipFileInput.value = null
+                },
+              })
+            }
+
+            filereader.readAsArrayBuffer(event.target.files[0])
+          })
+
+          document.addEventListener("keydown", function (event) {
+            var KEY_CTRL = event.ctrlKey || event.metaKey
+            var KEY_1 = event.code === "Digit1"
+            var KEY_2 = event.code === "Digit2"
+            var KEY_3 = event.code === "Digit3"
+            var KEY_F = event.code === "KeyF"
+
+            if (KEY_CTRL && KEY_1) {
+              event.preventDefault()
+              downloadDiskDOS()
+            }
+
+            if (KEY_CTRL && KEY_2) {
+              event.preventDefault()
+              showFileDownloaderDOS()
+            }
+
+            if (KEY_CTRL && KEY_3) {
+              event.preventDefault()
+              toggleSoundDOS()
+            }
+
+            if (KEY_CTRL && KEY_F) {
+              event.preventDefault()
+              requestEmulatorFullscreenDOS()
+            }
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
