@@ -828,6 +828,24 @@
 
           Module._em_on_focus()
         })
+        .catch(function () {
+          // zipping failed after the emulator was already paused. the outer
+          // try/catch cannot see an async rejection, so without this the flag
+          // stays latched: the focus handler returns early while
+          // DOS_SAVE_IN_PROGRESS is true, leaving the emulator frozen on the
+          // "Please wait..." screen with a reload as the only way out.
+          if (!globals.window["DOS_SAVE_IN_PROGRESS"]) {
+            // the then already restored and then threw. resuming again here
+            // would start a second run of the emulator.
+            return
+          }
+
+          ctx.putImageData(savedImageData, 0, 0)
+
+          globals.window["DOS_SAVE_IN_PROGRESS"] = false
+
+          Module._em_on_focus()
+        })
     } catch (err) {
       //
     }
@@ -836,12 +854,16 @@
   globals.window["downloadDiskDOS"] = downloadDiskDOS
 
   function showFileDownloaderDOS() {
+    var pausedHere = false
+    var overlay = null
+
     try {
       if (!globals.window["DOS_GAME_BOOTED"]) {
         return
       }
 
       globals.window["DOS_SAVE_IN_PROGRESS"] = true
+      pausedHere = true
 
       Module._em_on_blur()
 
@@ -851,7 +873,7 @@
 
       var currentPath = "/drive_c"
 
-      var overlay = document.createElement("div")
+      overlay = document.createElement("div")
       overlay.style.position = "absolute"
       overlay.style.top = "0"
       overlay.style.left = "0"
@@ -1053,8 +1075,23 @@
       }
 
       renderFolder(currentPath)
-    } catch (err) {
-      //
+      } catch (err) {
+      // building the overlay failed after the emulator was already paused.
+      // there is no close button to press, and the focus handler returns
+      // early while DOS_SAVE_IN_PROGRESS is true, so without this the
+      // emulator stays frozen until the page is reloaded.
+      if (pausedHere) {
+        // renderFolder runs after the overlay is already on screen, so a
+        // throw there leaves a working close button behind. remove it first
+        // or its handler resumes the emulator a second time.
+        if (overlay && overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay)
+        }
+
+        globals.window["DOS_SAVE_IN_PROGRESS"] = false
+
+        Module._em_on_focus()
+      }
     }
   }
 
