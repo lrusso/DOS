@@ -240,7 +240,7 @@
       }
 
       if (config.showMobileControls) {
-        function sendVirtualKey(keyState, keyValue) {
+        var sendVirtualKey = function (keyState, keyValue) {
           var oEvent = new KeyboardEvent(keyState, {
             bubbles: true,
             cancelable: false,
@@ -615,7 +615,7 @@
 
       var zip = new JSZip()
 
-      function addFolderToZip(fsPath, zipPath) {
+      var addFolderToZip = function (fsPath, zipPath) {
         var entries = FS.readdir(fsPath)
         for (var i = 0; i < entries.length; i++) {
           var entry = entries[i]
@@ -756,7 +756,7 @@
 
       globals.window["DOS_WRAPPER"].appendChild(overlay)
 
-      function renderFolder(path) {
+      var renderFolder = function (path) {
         currentPath = path
         headerPath.textContent =
           "C:" + currentPath.replace("/drive_c", "").replace(/\//g, "\\")
@@ -841,7 +841,7 @@
         }
       }
 
-      function createRow(name, info, isDir) {
+      var createRow = function (name, info, isDir) {
         var row = document.createElement("div")
         row.style.padding = "4px 12px"
         row.style.cursor = "pointer"
@@ -880,7 +880,7 @@
         return row
       }
 
-      function formatSize(bytes) {
+      var formatSize = function (bytes) {
         if (bytes < 1024) {
           return bytes + " B"
         }
@@ -890,7 +890,7 @@
         return (bytes / 1048576).toFixed(1) + " MB"
       }
 
-      function downloadFile(filePath, fileName) {
+      var downloadFile = function (filePath, fileName) {
         try {
           var content = FS.readFile(filePath)
           var blob = new Blob([content])
