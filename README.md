@@ -19,7 +19,7 @@ A DOS emulator with mobile compatibility designed for running in pure JavaScript
 
 ## How to use it:
 
-Examples of loading local and online files can be found [here](https://github.com/lrusso/DOS/blob/main/DOS.htm#L139-L162) and [here](https://github.com/lrusso/DOS/blob/main/DOS.htm#L190-L208).
+Examples of loading local and online files can be found [here](https://github.com/lrusso/DOS/blob/main/DOS.htm#L164-L187) and [here](https://github.com/lrusso/DOS/blob/main/DOS.htm#L218-L236).
 
 ```js
 embedDOSBox({
